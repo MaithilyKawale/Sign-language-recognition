@@ -75,7 +75,8 @@ def main():
                             arr = np.pad(arr, ((0, args.sequence_length-len(arr)), (0,0)))
                         dest = out_dir / "dynamic" / label
                         dest.mkdir(parents=True, exist_ok=True)
-                        np.savez_compressed(dest / f"{saved:05d}.npz", X=arr, label=label)
+                        next_index = len(list(dest.glob("*.npz")))
+                        np.savez_compressed(dest / f"{next_index:05d}.npz", X=arr, label=label)
                         sequence.clear()
                     saved += 1
                     print(f"Saved {saved}/{args.samples}")
